@@ -8,7 +8,7 @@ import text_tokenizing as tt
 from sklearn.model_selection import train_test_split
 
 #Some constant values
-maxlen = 250  # We will cut reviews after 100 words
+maxlen = 2500  # We will cut reviews after 100 words
 max_words = 50000  # We will only consider the top 50,000 words in the dataset
 
 
@@ -32,7 +32,8 @@ model.add(Embedding(max_words, embedding_dim, input_length=maxlen))
 #model.add(Flatten())
 model.add(LSTM(maxlen))
 model.add(Dense(1000, activation='relu'))
-model.add(Dropout(0.2, input_shape=(100,)))
+model.add(Dropout(0.5, input_shape=(500,)))
+model.add(Dense(500, activation='relu'))
 model.add(Dense(100, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
@@ -46,8 +47,8 @@ model.compile(optimizer='rmsprop',
               loss='binary_crossentropy',
               metrics=['acc'])
 history = model.fit(x_train, y_train,
-                    epochs=50,
-                    #batch_size=500,
+                    epochs=10,
+                    batch_size=500,
                     validation_data=(X_test, y_test))
 
 model_json = model.to_json()
