@@ -7,19 +7,31 @@ validation_samples = 280 # We will be validating on 20000 samples
 
 def tokenize(texts,labels,maxlen,max_words):
     tokenizer = Tokenizer(num_words=max_words)
+    print('\n'+'*'*80 )
+    print('Tokenizer Fittig on Text')
+    print('*'*80 + '\n')
     tokenizer.fit_on_texts(texts)
 
     sequences = tokenizer.texts_to_sequences(texts)
 
     word_index = tokenizer.word_index
+    print('\n'+'*'*80 )
     print('Found %s unique tokens.' % len(word_index))
+    print('*'*80 + '\n')
+    
 
     data = pad_sequences(sequences, maxlen=maxlen)
+    print('\n'+'*'*80 )
+    print('Printing Length of dataset')
+    print('*'*80 + '\n')
     print(len(data))
 
     labels = np.asarray(labels)
+    print('\n'+'*'*80 )
     print('Shape of data tensor:', data.shape)
     print('Shape of label tensor:', labels.shape)
+    print('*'*80 + '\n')
+    
 
     # Split the data into a training set and a validation set
     # But first, shuffle the data, since we started from data

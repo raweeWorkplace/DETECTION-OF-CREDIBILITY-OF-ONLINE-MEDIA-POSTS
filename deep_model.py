@@ -14,12 +14,9 @@ max_words = 50000  # We will only consider the top 50,000 words in the dataset
 
 #labeling the data set
 texts,labels = cs.load_csv()
-print(len(texts))
-print(texts.head())
 
 #spliting into train and test
 X_train, X_test, y_train, y_test = train_test_split(texts, labels,test_size=0.2)
-print(X_train.head())
 
 #sampling the text data
 x_train,y_train,word_index = tt.tokenize(X_train,y_train,maxlen,max_words)
@@ -57,6 +54,11 @@ with open("model21.json", "w") as json_file:
 	# serialize weights to HDF5
 	model.save_weights('pre_trained_glove_model.h5')
 	print("Saved model to disk")
+
+
+import deep_learning_test as dlt
+dlt.getTest(X_test, y_test)
+
 #plotting the results
 
 import matplotlib.pyplot as plt
