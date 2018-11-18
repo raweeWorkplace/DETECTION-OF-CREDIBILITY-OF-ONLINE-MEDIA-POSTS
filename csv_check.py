@@ -1,5 +1,7 @@
+import csv
+import sys
 import pandas as pd
-
+csv.field_size_limit(sys.maxsize)
 def load_csv():
     with open('fake1.csv') as file:
         data = pd.read_csv(file)
@@ -11,10 +13,12 @@ def load_csv():
         print(working_data)
         print('*'*80)
         text = []
+        text_text = []
         text_labels = []
         set_labels=set()
         count = 0
-        text = data.iloc[:,5]
+        text_text = data.iloc[:,5]
+        print(text_text.astype)
         text_labels = data.iloc[:,19]
 
         for row in text_labels:
@@ -28,27 +32,26 @@ def load_csv():
         labels=[]
         for i,row in enumerate(text_labels):
             if(row =='conspiracy'):
-                labels.append('1')
+                text_labels=text_labels.replace(row,'1')
                 
             elif(row =='fake'):
-                labels.append('1')
+                text_labels =text_labels.replace(row,'1')
                 
-            elif(row in['bs','bias']):
+            elif(row =='bs'):
                 if(float(data.loc[i][12])>0):
-                    labels.append('1')
+                    text_labels =text_labels.replace(row,'1')
                 else:
-                    labels.append('0')
-                
+                    text_labels =text_labels.replace(row,'0')
+            elif(row =='bias'):
+                if(float(data.loc[i][12])>0):
+                    text_labels =text_labels.replace(row,'1')
+                else:
+                    text_labels =text_labels.replace(row,'0')     
             elif(row =='hate'):
-                labels.append('1')
+                text_labels =text_labels.replace(row,'1')
                 
             else:
-                labels.append('0')
+                text_labels =text_labels.replace(row,'0')
         
-        print('\n'+'*'*80 )
-        print('Printing Labels')
-        print('*'*80 + '\n')
-        print(labels[:5])
-
-        return(text.astype(str),labels)
+        return(text_text.astype(str),text_labels)
 load_csv()

@@ -2,6 +2,9 @@ import os
 import numpy as np
 glove_dir = 'glove.6B/'
 embeddings_index = {}
+print('\n'+'*'*80 )
+print('Loading Words Embedding...')
+print('-'*80)
 print(os.path.join(glove_dir,'glove.6B.100d.txt'))
 f = open(os.path.join(glove_dir,'glove.6B.100d.txt'))
 
